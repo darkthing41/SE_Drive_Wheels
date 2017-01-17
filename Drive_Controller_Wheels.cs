@@ -1,13 +1,15 @@
 ﻿#region Header
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Globalization;
 using Sandbox.ModAPI.Ingame;
 using Sandbox.ModAPI.Interfaces;
-using SpaceEngineers.Game.ModAPI;
 using SpaceEngineers.Game.ModAPI.Ingame;
-using VRage;
 using VRage.Game.ModAPI.Ingame;
 using VRageMath;
 
@@ -17,12 +19,12 @@ namespace SpaceEngineersScripting
 	{
 		static void Main()
 		{
-			new Program().Main ("");
+
 		}
 	}
 
 
-	class Program : Sandbox.ModAPI.Ingame.MyGridProgram
+	class Program : MyGridProgram
 	{
 		#endregion
 		#region CodeEditor
