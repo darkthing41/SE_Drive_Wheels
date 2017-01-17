@@ -23,7 +23,7 @@ namespace SpaceEngineersScripting_Support
 		//--------------------
 
 		const string
-			nameBusCommand = "Bus Drive.Command";
+			nameBusCommand = "Program Drive";
 
 
 		//Definitions
@@ -88,12 +88,12 @@ namespace SpaceEngineersScripting_Support
 				lengthId = 8;
 
 			//The source of the storage
-			public IMyTextPanel
+			public IMyTerminalBlock
 				bus;
 
 			//Internal storage interface
 			private void Append(string value){
-				bus.WritePrivateText(value, true);
+				bus.CustomData += value;
 			}
 
 
@@ -109,7 +109,7 @@ namespace SpaceEngineersScripting_Support
 
 			//PUBLIC INTERFACE
 
-			public CommandBus(IMyTextPanel bus){
+			public CommandBus(IMyTerminalBlock bus){
 				this.bus = bus;
 			}
 
@@ -253,12 +253,12 @@ namespace SpaceEngineersScripting_Support
 
 			//Discover command bus
 			{
-				IMyTextPanel textPanel;
-				if ( !( FindBlock<IMyTextPanel>(out textPanel, nameBusCommand, ref temp)
-				    && ValidateBlock(textPanel, callbackRequired:false) ))
+				IMyProgrammableBlock bus;
+				if ( !( FindBlock<IMyProgrammableBlock>(out bus, nameBusCommand, ref temp)
+				    && ValidateBlock(bus, callbackRequired:false) ))
 					return false;
 				else
-					busCommand = new CommandBus(textPanel);
+					busCommand = new CommandBus(bus);
 			}
 
 			initialised = true;

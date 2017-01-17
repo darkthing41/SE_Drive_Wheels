@@ -23,7 +23,7 @@ Configurable gears allow speed and power to be controlled.
 + Manual mode allows the gear to be chosen.
 
 To use manual gears, the command bus must be used.
-This is because a program called at the full physics speed may get a chance to process any additional runs, and so any arguments passed are lost.
+This is because a program called at the full physics speed may not get a chance to process any additional runs, and so any arguments passed are lost.
 The [Commands][link-Commands] script should be run with arguments matching the `busId` values in the `Definitions` section, reproduced below, to place the commands in the command bus for the [Controller][link-Main] script to read.
 
 [link-Main]:./Drive_Controller_Wheels.txt
@@ -43,12 +43,11 @@ The [Commands][link-Commands] script should be run with arguments matching the `
 | ------------- | ------------- | ------------- |
 | Ship Controller | single        | by name constant
 | Wheel Suspensions | [all]         | no*
-| Text Panel    | single        | by name constant
 *but limited by the algorithm to those on the same grid as the Ship Controller
 
 ##Configuration
 + `nameController`: the name of the Ship Controller used to identify the controlled grid, and manage the handbrake
-+ `nameBusCommand`: the name of the Text/LCD Panel used as a buffer for Gearbox commands
++ `nameBusCommand`: the name of the Controller Programmable Block to receive Gearbox commands
 + `commandsMax` : the maximum number of commands that will be read from the command bus each time the script is executed
 + `gears` : the gears that the vehicle may use - configurable Speed (kmph) and Power (%)
 

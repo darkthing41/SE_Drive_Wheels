@@ -33,8 +33,6 @@ namespace SpaceEngineersScripting
 		const string
 			nameController = "Cockpit";
 
-		const string
-			nameBusCommand = "Bus Drive.Command";
 		const uint
 			commandsMax = 10;   //maximum number of commands to read each run
 
@@ -231,13 +229,13 @@ namespace SpaceEngineersScripting
 				lengthId = 8;
 
 			//The source of the storage
-			public IMyTextPanel
+			public IMyTerminalBlock
 				bus;
 
 			//Internal storage interface
 			private string Store{
-				get { return bus.GetPrivateText(); }
-				set { bus.WritePrivateText(value, false); }
+				get { return bus.CustomData; }
+				set { bus.CustomData = value; }
 			}
 
 
@@ -250,7 +248,7 @@ namespace SpaceEngineersScripting
 
 			//PUBLIC INTERFACE
 
-			public CommandBus(IMyTextPanel bus){
+			public CommandBus(IMyTerminalBlock bus){
 				this.bus = bus;
 
 				store = null;
@@ -671,15 +669,8 @@ namespace SpaceEngineersScripting
 			    && ValidateBlock(controller, callbackRequired:true) ))
 				return false;
 
-			//Discover command bus
-			{
-				IMyTextPanel textPanel;
-				if ( !( FindBlock<IMyTextPanel>(out textPanel, nameBusCommand, ref temp)
-				    && ValidateBlock(textPanel, callbackRequired:false) ))
-					return false;
-				else
-					busCommand = new CommandBus(textPanel);
-			}
+			//Set up command bus
+			busCommand = new CommandBus(Me);
 
 			//Initialise ship data
 			shipForward = Base6Directions.GetIntVector(controller.Orientation.Forward);
@@ -692,8 +683,7 @@ namespace SpaceEngineersScripting
 
 		private bool Validate(){
 			bool valid =
-				ValidateBlock(controller, callbackRequired:true) &
-				ValidateBlock(busCommand.bus, callbackRequired:false);
+				ValidateBlock(controller, callbackRequired:true);
 
 			if ( !valid ) {
 				Echo ("Validation of saved blocks failed.");
