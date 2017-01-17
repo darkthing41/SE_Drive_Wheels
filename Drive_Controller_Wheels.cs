@@ -39,10 +39,10 @@ namespace SpaceEngineersScripting
 		static readonly Gear[]  //sorted in order of maximum speed ascending
 			gears = new Gear[] {
 				//        name, speed,  power
-				new Gear ("1",  20.0f,  40.0f),
-				new Gear ("2",  40.0f,  20.0f),
-				new Gear ("3",  80.0f,  10.0f),
-				new Gear ("4", 120.0f,  800.0f/120.0f),
+				new Gear ("1",  20.0f,  80.0f),
+				new Gear ("2",  40.0f,  40.0f),
+				new Gear ("3",  80.0f,  20.0f),
+				new Gear ("4", 120.0f,  1600.0f/120.0f),
 			};
 
 
