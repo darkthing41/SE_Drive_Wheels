@@ -161,6 +161,25 @@ namespace SpaceEngineersScripting
 			///	shipController.SetValue<bool>("HorizonIndicator", horizonIndicator);
 			///}
 		}
+		public struct WheelControls
+		{   //IMyShipController controls interpreter
+			public readonly bool
+				///moveForward, moveBackward,
+				///turnLeft, turnRight,
+				brake;
+
+			public WheelControls(IMyShipController controller)
+			{
+				Vector3
+					move = controller.MoveIndicator;
+
+				///moveForward = move.Z < 0;
+				///moveBackward = move.Z > 0;
+				///turnLeft = move.X < 0;
+				///turnRight = move.X > 0;
+				brake = move.Y > 0;
+			}
+		}
 
 		public struct Gear
 		{
@@ -515,6 +534,8 @@ namespace SpaceEngineersScripting
 			float
 				speedForward = (float)(vWorldForward.Length() * kmph_p_mps),
 				vForward = speedForward * Math.Sign(Vector3D.Dot(vWorldForward, worldForward));
+			WheelControls
+				controls = new WheelControls(controller);
 
 			//Manage automatic gearbox
 			if (status.gearsAutomatic) {
@@ -536,7 +557,8 @@ namespace SpaceEngineersScripting
 			float
 				power = gears[status.gear].power;
 			bool
-				speedUnsafe = (speedForward >= speedLimitMax*1.1f);
+				speedUnsafe = (speedForward >= speedLimitMax*1.1f),
+				brake = controls.brake || speedUnsafe;
 
 			//Check each suspension unit
 			//-only control suspension units on our grid
@@ -555,12 +577,12 @@ namespace SpaceEngineersScripting
 
 					//Apply traction control
 					//-limit wheel speed based on vehicle's forward speed
-					//-apply brakes while speed is unsafe (n.b. overrides manual brake control)
+					//-apply brakes while speed is unsafe
 					MotorSuspension.SetSpeedLimit(suspension, speedLimit);
 					if (!controller.HandBrake)
-						suspension.Brake = speedUnsafe;
+						suspension.Brake = brake;
 
-				   //Apply gear ratio
+					//Apply gear ratio
 					if (suspension.Power != power) {
 						MotorSuspension.SetPower(suspension, power);
 					}

@@ -36,7 +36,7 @@ The [Commands][link-Commands] script should be run with arguments matching the `
 | `GearDown`    | Change down one gear (and use manual gearbox)
 
 ##Known Issues
-+ The Traction Control overriding the wheel brakes prevents the normal `brake` key binding from working. As a workaround, you may still use the handbrake.
+None
 
 ##Hardware
 | Block(s)      | number        | Configurable  |
@@ -54,6 +54,7 @@ The [Commands][link-Commands] script should be run with arguments matching the `
 ##Standard Blocks
 + `MotorSuspension`: IMyMotorSuspension API wrapper for setting Wheel Suspension values
 + `ShipController`: IMyShipController API wrapper for setting Ship Controller values
++ `WheelControls`: IMyShipController intrepreter of user input in the context of a wheeled vehicle
 + `CommandBus` : [Data Bus](https://github.com/darkthing41/SE_DataBus) cut down and optimised for passing commands
 + `FindBlock()`: find blocks during setup
 + `ValidateBlock()`: check that found blocks are usable
