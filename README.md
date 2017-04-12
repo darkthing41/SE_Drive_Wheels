@@ -4,7 +4,7 @@ Space Engineers: Controller for wheel drive augmentation.
 > This project is configured to be built within a separate IDE to allow for error checking, code completion etc..
 > Only the section in `#region CodeEditor` should be copied into the Space Engineers editor. This region has been automatically extracted into the corresponding `txt` file.
 
-##Description
+## Description
 A lightweight, real-time script to improve the handling and versatility of wheeled vehicles.
 
 To be effective, this script should be run at the full physics simulation speed of 60Hz.
@@ -35,23 +35,24 @@ The [Commands][link-Commands] script should be run with arguments matching the `
 | `GearUp`      | Change up one gear (and use manual gearbox)
 | `GearDown`    | Change down one gear (and use manual gearbox)
 
-##Known Issues
+## Known Issues
 None
 
-##Hardware
+## Hardware
+
 | Block(s)      | number        | Configurable  |
 | ------------- | ------------- | ------------- |
 | Ship Controller | single        | by name constant
 | Wheel Suspensions | [all]         | no*
 *but limited by the algorithm to those on the same grid as the Ship Controller
 
-##Configuration
+## Configuration
 + `nameController`: the name of the Ship Controller used to identify the controlled grid, and manage the handbrake
 + `nameBusCommand`: the name of the Controller Programmable Block to receive Gearbox commands
 + `commandsMax` : the maximum number of commands that will be read from the command bus each time the script is executed
 + `gears` : the gears that the vehicle may use - configurable Speed (kmph) and Power (%)
 
-##Standard Blocks
+## Standard Blocks
 + `MotorSuspension`: IMyMotorSuspension API wrapper for setting Wheel Suspension values
 + `ShipController`: IMyShipController API wrapper for setting Ship Controller values
 + `WheelControls`: IMyShipController intrepreter of user input in the context of a wheeled vehicle
